@@ -40,13 +40,10 @@ export const TodoApp = () => {
 
                 <h4>Agregar TODO</h4>
                 <hr />
-
-                {/* todo add onNewTodo( todo )*/}
-                {/* { id: new Date()..., description:'', done: false } */}
+                
                 <TodoAdd 
                     handleNewTodo={ handleNewTodo }
                 />
-                {/* todo add */}
             </div>
         </div>
         </>

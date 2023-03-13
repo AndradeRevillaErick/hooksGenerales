@@ -1,27 +1,27 @@
 import { useState } from "react";
+import { useForm } from "../hooks/useForm";
 
 
 export const TodoAdd = ({ handleNewTodo }) => {
 
-    const [inputValue, setInputValue] = useState('')
-
-    const onHandleChange = ({ target }) => {
-        setInputValue( target.value );
-    }
-
     const onSubmit = ( event ) => {
         event.preventDefault();
 
-        if( inputValue === '' ){
-            return;
-        }
-        
-        handleNewTodo({
+        if( description.length <=1 ) return;
+
+        const newTodo = {
             id: new Date().getTime(),
-            description: inputValue,
+            description,
             done: false
-        });
+        };
+        
+        handleNewTodo( newTodo );
+        onResetForm();
     }
+
+    const { description, onInputChange, onResetForm } = useForm({
+        description: ''
+    });
 
     return(
         <form onSubmit={ onSubmit }>
@@ -29,8 +29,9 @@ export const TodoAdd = ({ handleNewTodo }) => {
                 type="text" 
                 placeholder="Que hay que hacer?"
                 className="form-control"
-                value={ inputValue }
-                onChange={ onHandleChange }
+                name='description'
+                value={ description }
+                onChange={ onInputChange }
             />
 
             <button 
