@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider, } from "react-router-dom";
+
 // import { CallbackHook } from './06-memos/CallbackHook'
 // import { CallbackHook } from './06-memos/CallbackHook'
 // import { Padre } from './07-tarea-memo/Padre'
@@ -13,15 +15,26 @@ import ReactDOM from 'react-dom/client'
 // import { FocusScreen } from './04-useRef/FocusScreen'
 // import { Layout } from './05-useLayoutEffect/Layout'
 // import { Memorize } from './06-memos/Memorize'
-import { TodoApp } from './08-useReducer/TodoApp'
+// import { TodoApp } from './08-useReducer/TodoApp'
+import { MainApp } from './09-useContext/MainApp'
 import './index.css'
 
 // import './08-useReducer/intro-reducer';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div>Hello world!</div>,
+  },
+]);
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  //<React.StrictMode>
-  // <CallbackHook/>
-    // <Padre/>
-    <TodoApp/>
-  //</React.StrictMode>,
+  
+  <React.StrictMode>
+    <RouterProvider router={router} >
+      
+        <MainApp/>
+      
+    </RouterProvider>
+  </React.StrictMode>
 )
