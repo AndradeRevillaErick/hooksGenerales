@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 
 
 export const MainApp = () => {
@@ -5,6 +6,8 @@ export const MainApp = () => {
         <>
             <h1>MainApp</h1>
             <hr />
+
+            <Outlet />
         </>
     );
 }
