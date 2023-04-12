@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { TodoItem } from "../../08-useReducer/TodoItem";
 
 
@@ -10,8 +10,8 @@ describe('Pruebas en <TodoItem />', () => {
         done: false
     };
 
-    const onDeleteTodo = jest.fn();
-    const onToggleTodo = jest.fn();
+    const onDeleteTodoMock = jest.fn();
+    const onToggleTodoMock = jest.fn();
 
     beforeEach( () => jest.clearAllMocks() );
 
@@ -20,8 +20,8 @@ describe('Pruebas en <TodoItem />', () => {
         render( 
             <TodoItem
                 todo = { todo }
-                onToggleTodo = { onToggleTodo }
-                onDeleteTodo = { onDeleteTodo }
+                onToggleTodo = { onToggleTodoMock }
+                onDeleteTodo = { onDeleteTodoMock }
             /> 
         );
 
@@ -31,6 +31,57 @@ describe('Pruebas en <TodoItem />', () => {
         const spanElement = screen.getByLabelText('span');
         expect( spanElement.className ).toContain('align-self-center');
         expect( spanElement.className ).not.toContain('text-decoration-line-through');
+
+    });
+
+    test('debe de mostrar el todo completado', () => {
+        
+        todo.done = true;
+
+        render( 
+            <TodoItem
+                todo = { todo }
+                onToggleTodo = { onToggleTodoMock }
+                onDeleteTodo = { onDeleteTodoMock }
+            /> 
+        );
+
+        const spanElement = screen.getByLabelText('span');
+        expect( spanElement.className ).toContain('text-decoration-line-through');
+
+    });
+
+    test('debe de llamar el ToggleTodo cuando se hace click', () => {
+        
+        render( 
+            <TodoItem
+                todo = { todo }
+                onToggleTodo = { onToggleTodoMock }
+                onDeleteTodo = { onDeleteTodoMock }
+            /> 
+        );
+
+        const spanElement = screen.getByLabelText('span');
+        fireEvent.click( spanElement );
+
+        expect( onToggleTodoMock ).toHaveBeenCalledWith( todo.id );
+
+    });
+
+    test('button debe de llamar el deleteTodo', () => {
+        
+        render( 
+            <TodoItem
+                todo = { todo }
+                onToggleTodo = { onToggleTodoMock }
+                onDeleteTodo = { onDeleteTodoMock }
+            /> 
+        );
+
+        const buttonElement = screen.getByRole('button');
+        fireEvent.click( buttonElement );
+
+        expect( onDeleteTodoMock ).toHaveBeenCalledWith( todo.id );
 
     });
 });
