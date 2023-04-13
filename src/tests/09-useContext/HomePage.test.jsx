@@ -32,7 +32,6 @@ describe('Pruebas en el <HomePage/>', () => {
         );
         
         const preTag = screen.getByLabelText('pre'); //aria label
-        console.log(preTag.innerHTML);
         expect( preTag.innerHTML ).toContain( user.id.toString() );
         expect( preTag.innerHTML ).toContain( user.name );
 
